@@ -5,7 +5,7 @@ import styles from './styles'
 import Header from '../../header/header'
 import logo from '../../../assets/BetterBetter.png'
 
-<Image source={logo} />
+const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
 
 const LiveScreen = () => {
   return (
