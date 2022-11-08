@@ -3,8 +3,9 @@ import { Text, View, Image } from 'react-native';
 
 import styles from './styles'
 import Header from '../../header/header'
+import logo from '../../../assets/BetterBetter.png'
 
-const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
+<Image source={logo} />
 
 const HomeScreen = () => {
   return (
