@@ -1,7 +1,9 @@
 // components/signup.js
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../database/connection';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 export default class Signup extends Component {
   
@@ -74,12 +76,14 @@ export default class Signup extends Component {
           onChangeText={(val) => this.updateInputVal(val, 'password')}
           maxLength={15}
           secureTextEntry={true}
-        />   
-        <Button
-          color="#3740FE"
-          title="Signup"
-          onPress={() => this.registerUser()}
         />
+        <Pressable 
+        color="#3740FE"
+        title="Sign Up" 
+        onPress={() => this.registerUser()}>
+            <Text>Login</Text>
+        </Pressable>
+
         <Text 
           style={styles.loginText}
           onPress={() => this.props.navigation.navigate('Login')}>

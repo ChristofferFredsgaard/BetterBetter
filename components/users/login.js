@@ -1,6 +1,6 @@
 // components/login.js
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../database/connection';
 
 export default class Login extends Component {
@@ -36,7 +36,7 @@ export default class Login extends Component {
           email: '', 
           password: ''
         })
-        this.props.navigation.navigate('Dashboard')
+        this.props.navigation.navigate('Profile')
       })
       .catch(error => this.setState({ errorMessage: error.message }))
     }
@@ -65,11 +65,12 @@ export default class Login extends Component {
           maxLength={15}
           secureTextEntry={true}
         />   
-        <Button
-          color="#3740FE"
-          title="Signin"
-          onPress={() => this.userLogin()}
-        />   
+        <Pressable 
+        color="#3740FE"
+        title="Login" 
+        onPress={() => this.userLogin()}>
+            <Text>Login</Text>
+        </Pressable>  
         <Text 
           style={styles.loginText}
           onPress={() => this.props.navigation.navigate('Signup')}>
