@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
-import firebase from '../../database/connection';
-
 
 export default class ProfileScreen extends Component {
   constructor() {

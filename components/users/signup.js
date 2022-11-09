@@ -1,9 +1,7 @@
 // components/signup.js
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
-import firebase from '../database/connection';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebaseConfig from '../database/connection';
 
 export default class Signup extends Component {
   
@@ -28,7 +26,7 @@ export default class Signup extends Component {
       this.setState({
         isLoading: true,
       })
-      firebase
+      firebaseConfig
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
