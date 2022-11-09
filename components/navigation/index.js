@@ -3,6 +3,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/HomeScreen/index";
+import MatchScreen from "../screens/MatchScreen";
+import LeagueScreen from "../screens/LeagueScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import LiveScreen from "../screens/LiveScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,11 +34,11 @@ const Tabs = ({ props }) => {
 
       <Tab.Screen
         name="Matches"
-        component={HomeScreen}
+        component={MatchScreen}
         options={{
           tabBarLabel: "Matches",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="star" color={color} size={size} />
+            <Ionicons name="calendar" color={color} size={size} />
           ),
           tabBarStyle: {
             borderTopColor: "#353535",
@@ -45,26 +49,11 @@ const Tabs = ({ props }) => {
 
       <Tab.Screen
         name="Live-Matches"
-        component={HomeScreen}
+        component={LiveScreen}
         options={{
           tabBarLabel: "Live-Matches",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="star" color={color} size={size} />
-          ),
-          tabBarStyle: {
-            borderTopColor: "#353535",
-            backgroundColor: "#353535",
-          },
-        }}
-      />
-
-      <Tab.Screen
-        name="Profile"
-        component={HomeScreen}
-        options={{
-          tabBarLabel: "Profile",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="football" color={color} size={size} />
+            <Ionicons name="football-outline" color={color} size={size} />
           ),
           tabBarStyle: {
             borderTopColor: "#353535",
@@ -75,11 +64,26 @@ const Tabs = ({ props }) => {
 
       <Tab.Screen
         name="Leagues"
-        component={HomeScreen}
+        component={LeagueScreen}
         options={{
           tabBarLabel: "Leagues",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list" color={color} size={size} />
+            <Ionicons name="reorder-four" color={color} size={size} />
+          ),
+          tabBarStyle: {
+            borderTopColor: "#353535",
+            backgroundColor: "#353535",
+          },
+        }}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" color={color} size={size} />
           ),
           tabBarStyle: {
             borderTopColor: "#353535",
