@@ -3,7 +3,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp, heightPercentageT
 
 const styles = StyleSheet.create({
     ContentContainer: {
-        backgroundColor: '#101010',
+        backgroundColor: '#303030',
         width: '100%',
         height: Dimensions.get('window').height,
     },
