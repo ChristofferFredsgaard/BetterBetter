@@ -1,7 +1,5 @@
-// components/signup.js
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
-import firebaseConfig from '../database/connection';
 
 export default class Signup extends Component {
   
@@ -21,26 +19,16 @@ export default class Signup extends Component {
   }
   registerUser = () => {
     if(this.state.email === '' && this.state.password === '') {
-      Alert.alert('Enter details to signup!')
+      Alert.alert('Enter details to sign up!')
     } else {
       this.setState({
         isLoading: true,
       })
-      firebaseConfig
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
         res.user.updateProfile({
           displayName: this.state.displayName
         })
-        console.log('User registered successfully!')
-        this.setState({
-          isLoading: false,
-          displayName: '',
-          email: '', 
-          password: ''
-        })
-        this.props.navigation.navigate('Login')
       })
       .catch(error => this.setState({ errorMessage: error.message }))      
     }
@@ -72,21 +60,12 @@ export default class Signup extends Component {
           placeholder="Password"
           value={this.state.password}
           onChangeText={(val) => this.updateInputVal(val, 'password')}
-          maxLength={15}
+          maxLength={20}
           secureTextEntry={true}
         />
-        <Pressable 
-        color="#3740FE"
-        title="Sign Up" 
-        onPress={() => this.registerUser()}>
-            <Text>Login</Text>
-        </Pressable>
-
-        <Text 
-          style={styles.loginText}
-          onPress={() => this.props.navigation.navigate('Login')}>
-          Already Registered? Click here to login
-        </Text>                          
+        <Pressable color="#3740FE" title="Login" onPress={() => this.registerUser()}>
+            <Text>Sign Up</Text>
+        </Pressable>                        
       </View>
     );
   }

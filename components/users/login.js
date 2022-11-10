@@ -1,7 +1,6 @@
 // components/login.js
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
-import firebaseConfig from '../database/connection';
 
 export default class Login extends Component {
   
@@ -13,6 +12,7 @@ export default class Login extends Component {
       isLoading: false
     }
   }
+
   updateInputVal = (val, prop) => {
     const state = this.state;
     state[prop] = val;
@@ -20,17 +20,14 @@ export default class Login extends Component {
   }
   userLogin = () => {
     if(this.state.email === '' && this.state.password === '') {
-      Alert.alert('Enter details to signin!')
+      Alert.alert('Enter details to log in!')
     } else {
       this.setState({
         isLoading: true,
       })
-      firebaseConfig
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
         console.log(res)
-        console.log('User logged-in successfully!')
         this.setState({
           isLoading: false,
           email: '', 
@@ -62,20 +59,12 @@ export default class Login extends Component {
           placeholder="Password"
           value={this.state.password}
           onChangeText={(val) => this.updateInputVal(val, 'password')}
-          maxLength={15}
+          maxLength={20}
           secureTextEntry={true}
         />   
-        <Pressable 
-        color="#3740FE"
-        title="Login" 
-        onPress={() => this.userLogin()}>
+        <Pressable color="#3740FE" title="Login" onPress={() => this.userLogin()}>
             <Text>Login</Text>
-        </Pressable>  
-        <Text 
-          style={styles.loginText}
-          onPress={() => this.props.navigation.navigate('Signup')}>
-          Don't have account? Click here to signup
-        </Text>                          
+        </Pressable>                       
       </View>
     );
   }
