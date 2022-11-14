@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 
 import styles from './styles'
-import Header from '../../header/header'
+import Header from '../../components/header/header'
 
 const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
 

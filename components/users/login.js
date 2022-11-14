@@ -1,104 +1,76 @@
-// components/login.js
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react'
+import { Text, View, StyleSheet, TextInput, Pressable } from "react-native"
+import { NavigationContainer } from '@react-navigation/native';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import auth from 'firebase'
 
-export default class Login extends Component {
-  
-  constructor() {
-    super();
-    this.state = { 
-      email: '', 
-      password: '',
-      isLoading: false
-    }
-  }
+import Tabs from '../navigation';
 
-  updateInputVal = (val, prop) => {
-    const state = this.state;
-    state[prop] = val;
-    this.setState(state);
-  }
-  userLogin = () => {
-    if(this.state.email === '' && this.state.password === '') {
-      Alert.alert('Enter details to log in!')
-    } else {
-      this.setState({
-        isLoading: true,
-      })
-      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then((res) => {
-        console.log(res)
-        this.setState({
-          isLoading: false,
-          email: '', 
-          password: ''
-        })
-        console.log("Logged In")
-      })
-      .catch(error => this.setState({ errorMessage: error.message }))
-    }
-  }
-  render() {
-    if(this.state.isLoading){
-      return(
-        <View style={styles.preloader}>
-          <ActivityIndicator size="large" color="#9E9E9E"/>
-        </View>
-      )
-    }    
-    return (
-      <View style={styles.container}>  
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Email"
-          value={this.state.email}
-          onChangeText={(val) => this.updateInputVal(val, 'email')}
-        />
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="Password"
-          value={this.state.password}
-          onChangeText={(val) => this.updateInputVal(val, 'password')}
-          maxLength={20}
-          secureTextEntry={true}
-        />   
-        <Pressable color="#3740FE" title="Login" onPress={() => this.userLogin()}>
-            <Text>Login</Text>
-        </Pressable>                       
-      </View>
-    );
-  }
-}
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 35,
-    backgroundColor: '#fff'
-  },
-  inputStyle: {
-    width: '100%',
-    marginBottom: 15,
-    paddingBottom: 15,
-    alignSelf: "center",
-    borderColor: "#ccc",
-    borderBottomWidth: 1
-  },
-  loginText: {
-    color: '#3740FE',
-    marginTop: 25,
-    textAlign: 'center'
-  },
-  preloader: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff'
-  }
-});
+    view: {
+        flex: 1,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center"
+    }
+})
+
+export default function Loginscreen({ navigation }) {
+
+    const [values, setValues] = useState({
+        email: "",
+        pwd: ""
+    })
+
+    function handleChange(text, eventName) {
+        setValues(prev => {
+            return {
+                ...prev,
+                [eventName]: text
+            }
+        })
+    }
+
+    /*function Login() {
+        const { email, pwd } = values
+
+        firebase.auth().signInWithEmailAndPassword(email, pwd)
+            .then(() => {
+                console.log('Logged');
+                navigation.navigate('SignInScreen', { screen: 'SignUp' });
+            })
+            .catch((error) => {
+                alert(error.message)
+                // ..
+            });
+    }*/
+
+    useEffect(() => {
+        const unsub = auth.onAuthStateChanged(user => {
+            if (user) {
+                navigation.replace("Home")
+            } 
+        })
+    })
+
+    return (
+        <View style={styles.view}>
+            <TextInput
+            style={styles.inputStyle}
+            placeholder="Email"
+            onChangeText={text => handleChange(text, "email")}
+            />
+            <TextInput
+            style={styles.inputStyle}
+            placeholder="Password"
+            onChangeText={text => handleChange(text, "pwd")}
+            maxLength={20}
+            secureTextEntry={true}
+            />
+            <Pressable color="#3740FE" title="Login" onPress={() => Login()}>
+                <Text>Log In</Text>
+            </Pressable>
+        </View>
+    )
+}

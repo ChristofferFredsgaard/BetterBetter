@@ -1,8 +1,11 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableHighlight } from 'react-native';
 
 import styles from './styles'
-import Header from '../../header/header'
+import Header from '../../components/header/header'
+
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
 
 const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
 
@@ -17,10 +20,7 @@ const HomeScreen = () => {
           
           <View style={styles.titles}>
               <Text style={styles.title}>HOME</Text>
-              <Text style={styles.subtitle}>Here at BetterBetter you will be able to determine your bets from specific data, 
-                                            that you can find for every match you search up. It has never 
-                                            been easier to find the average amount of corners, 
-                                            goals scored or goals conceded per match. Create your bets, with the help of our data.</Text>
+              <Text style={styles.subtitle}>{firebase.auth.currentUser?.email}</Text>
           </View>
         </View>
     </View>

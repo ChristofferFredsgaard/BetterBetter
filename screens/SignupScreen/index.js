@@ -1,16 +1,10 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, Pressable } from "react-native"
+import { Text, View, StyleSheet, TextInput, TouchableHighlight, Alert } from "react-native"
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
-const styles = StyleSheet.create({
-    view: {
-        flex: 1,
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center"
-    }
-})
+
+import styles from './styles'
 
 export default function SignUpScreen({ navigation }) {
 
@@ -35,6 +29,8 @@ export default function SignUpScreen({ navigation }) {
         if (pwd == pwd2) {
             firebase.auth().createUserWithEmailAndPassword(email, pwd)
                 .then(() => {
+                    Alert.alert("Thanks for sign up " + email);
+                    navigation.navigate('Loginscreen', { screen: 'Login' });
                 })
                 .catch((error) => {
                     alert(error.message)
@@ -45,28 +41,32 @@ export default function SignUpScreen({ navigation }) {
         }
     }
 
-    return <View style={styles.view}>
+    return (
+    <View style={styles.view}>
         <TextInput
-          style={styles.inputStyle}
+          style={styles.textInput}
           placeholder="Email"
           onChangeText={text => handleChange(text, "email")}
         />
         <TextInput
-          style={styles.inputStyle}
+          style={styles.textInput}
           placeholder="Password"
           onChangeText={text => handleChange(text, "pwd")}
           maxLength={20}
           secureTextEntry={true}
         />
         <TextInput
-          style={styles.inputStyle}
+          style={styles.textInput}
           placeholder="Confirm Password"
           onChangeText={text => handleChange(text, "pwd2")}
           maxLength={20}
           secureTextEntry={true}
         />
-        <Pressable color="#3740FE" title="Login" onPress={() => SignUp()}>
-            <Text>Sign Up</Text>
-        </Pressable> 
+        <View style={styles.button}>
+                <TouchableHighlight color="#3740FE" title="Login" onPress={() => SignUp()}>
+                    <Text>Log In</Text>
+                </TouchableHighlight>
+            </View>
     </View>
+    );
 }
