@@ -6,7 +6,6 @@ import Header from '../../components/header/header'
 
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
-import { getDatabase, ref, onValue} from "firebase/database";
 
 const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
 

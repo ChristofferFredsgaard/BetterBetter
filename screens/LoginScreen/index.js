@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, TextInput, Pressable, TouchableHighlight } from "react-native"
-import { NavigationContainer } from '@react-navigation/native';
+
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
 import styles from './styles';
 
-export default function LoginScreen({ navigation }) {
-
+const LoginScreen = () => {
     const [values, setValues] = useState({
         email: "",
         pwd: ""
@@ -57,5 +56,7 @@ export default function LoginScreen({ navigation }) {
                 </View>
             </TouchableHighlight>
         </View>
-    )
-}
+    );
+};
+
+export default LoginScreen;
