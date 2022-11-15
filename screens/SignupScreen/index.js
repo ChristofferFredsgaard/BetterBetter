@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableHighlight, Alert } from "react-native"
+import { Text, View, TextInput, TouchableHighlight, Alert } from "react-native"
 
 //Firebase Imports
 import firebase from 'firebase/compat/app'
@@ -31,12 +31,10 @@ export default function SignUpScreen({ navigation }) {
         if (pwd == pwd2) {
             firebase.auth().createUserWithEmailAndPassword(email, pwd)
                 .then(() => {
-                    Alert.alert("Thanks for sign up " + email);
-                    navigation.navigate('Loginscreen', { screen: 'Login' });
+                    Alert.alert("Thank you for signing up!", "You can always reset your password, by using your email "+email+" in the profile section!");
                 })
                 .catch((error) => {
                     alert(error.message)
-                    // ..
                 });
         } else {
             alert("Passwords are different!")
@@ -64,11 +62,11 @@ export default function SignUpScreen({ navigation }) {
           maxLength={20}
           secureTextEntry={true}
         />
-        <View style={styles.button}>
-                <TouchableHighlight color="#3740FE" title="Login" onPress={() => SignUp()}>
-                    <Text>Log In</Text>
-                </TouchableHighlight>
+        <TouchableHighlight color="#3740FE" title="Login" onPress={() => SignUp()}>
+            <View style={styles.button}>
+                <Text>Sign Up</Text>
             </View>
+        </TouchableHighlight>
     </View>
     );
 }
