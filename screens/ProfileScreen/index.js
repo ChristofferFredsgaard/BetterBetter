@@ -1,11 +1,12 @@
 import React from 'react';
 import { Text, View, Image, TouchableHighlight } from 'react-native';
 
-import styles from './styles'
-import Header from '../../components/header/header'
-
+//Firebase Imports
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
+
+import styles from './styles'
+import Header from '../../components/header/header'
 
 const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
 
@@ -15,13 +16,7 @@ const handleSignOut = () => {
     .catch(error => alert(error.message))
 }
 
-const user = firebase.auth().currentUser.email
-
-/*const test = user.providerData.forEach((userInfo) => {
-  console.log(userInfo.email)
-});*/
-
-
+//const user = firebase.auth().currentUser.email
 
 const ProfileScreen = () => {
   return (
@@ -34,7 +29,6 @@ const ProfileScreen = () => {
           <View>
             <TouchableHighlight onPress={handleSignOut}>
               <View>
-                <Text style={styles.subtitle}>Email: {user}</Text>
                 <Text style={styles.subtitle}>LOG OUT</Text>
               </View>
             </TouchableHighlight>

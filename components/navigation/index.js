@@ -1,3 +1,4 @@
+/*
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -98,3 +99,4 @@ const Tabs = ({ props }) => {
 };
 
 export default Tabs;
+*/

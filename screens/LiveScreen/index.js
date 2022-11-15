@@ -1,6 +1,10 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 
+//Firebase Imports
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+
 import styles from './styles'
 import Header from '../../components/header/header'
 

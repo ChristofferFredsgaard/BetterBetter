@@ -1,12 +1,15 @@
 //Standard Imports
 import React, {useState, useEffect} from "react";
+import { Text, View } from "react-native"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from "@expo/vector-icons";
 
 //Firebase Imports
+import apiKeys from './config/keys'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
+
 
 //Screens - users folder
 import HomeScreen from "./screens/HomeScreen";
@@ -22,22 +25,15 @@ import SignUpScreen from "./screens/SignupScreen";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  if (!firebase.apps.length) {
+    console.log('Connected with Firebase')
+    firebase.initializeApp(apiKeys.firebaseConfig);
+  }
+  
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyD7ygjGXrh22R-ACUuIyXqW9a13WMg_AlE",
-    authDomain: "betterbetter-odds.firebaseapp.com",
-    projectId: "betterbetter-odds",
-    storageBucket: "betterbetter-odds.appspot.com",
-    messagingSenderId: "933134229209",
-    appId: "1:933134229209:web:64407976a294b0b51ee8c8",
-    measurementId: "G-KDXHFJX3QJ"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  
   function onAuthStateChanged(user) {
     setUser(user);
     if (initializing) setInitializing(false);

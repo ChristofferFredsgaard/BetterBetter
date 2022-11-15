@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, TextInput, Pressable, TouchableHighlight } from "react-native"
 
+//Firebase Imports
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 

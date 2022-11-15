@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
         width: wp('70%'),
         alignItems: 'center',
+        margin: wp('2%'),
         padding: 10,
         borderRadius: 5,
         borderColor: 'black',
