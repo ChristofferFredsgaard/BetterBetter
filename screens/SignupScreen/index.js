@@ -5,7 +5,6 @@ import { Text, View, TextInput, TouchableHighlight, Alert } from "react-native"
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
-
 import styles from './styles'
 
 export default function SignUpScreen({ navigation }) {
@@ -43,6 +42,8 @@ export default function SignUpScreen({ navigation }) {
 
     return (
     <View style={styles.view}>
+        <Text style={styles.title}>SIGN UP</Text>
+
         <TextInput
           style={styles.textInput}
           placeholder="Email"

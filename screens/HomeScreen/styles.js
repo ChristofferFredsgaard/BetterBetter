@@ -36,5 +36,11 @@ const styles = StyleSheet.create({
         marginRight: wp('7%'),
         letterSpacing: 1.2
     },
+    welcome_title: {
+        fontSize: heightPercentageToDP('1.5%'),
+        fontWeight: '200',
+        color: 'white',
+        letterSpacing: 1.2
+    },
 })
     export default styles;

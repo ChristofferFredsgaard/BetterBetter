@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TextInput, Pressable, TouchableHighlight } from "react-native"
+import React, { useState } from 'react'
+import { Text, View, TextInput, TouchableHighlight } from "react-native"
 
 //Firebase Imports
 import firebase from 'firebase/compat/app'
@@ -37,12 +37,15 @@ const LoginScreen = () => {
 
     return (
         <View style={styles.view}>
+            <Text style={styles.title}>LOG IN</Text>
+
             <View style={styles.textInput}>
                 <TextInput
                 placeholder="Email"
                 onChangeText={text => handleChange(text, "email")}
                 />
             </View>
+            
             <View style={styles.textInput}>
                 <TextInput
                 placeholder="Password"

@@ -1,18 +1,38 @@
-import React from 'react';
-import { Text, View, Image } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {Text,View,Image,TouchableHighlight,ScrollView} from "react-native";
+import axios from "axios";
+import { DataTable } from 'react-native-paper';
 
-//Firebase Imports
-/*
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-*/
+import styles from "./styles";
+import Header from "../../components/header/header";
+import apiImport from "../../config/keys";
 
-import styles from './styles'
-import Header from '../../components/header/header'
-
-const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
+const image = {
+  uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png",
+};
 
 const LeagueScreen = () => {
+  const [state, setState] = useState({
+    results: [],
+    selected: {},
+  });
+
+  var standings = "https://soccer.sportmonks.com/api/v2.0/leagues?api_token=FYNhuIUF1XaTFKnLqL6WCkU2vyskoZoS0K6LVvmb5ggpQl0o5s8UGNut4GPe";
+  const getJsonData = () => {
+    axios(standings).then(({ data }) => {
+      let results = data.data;
+      //console.log(axios);
+      console.log(results);
+      setState((prevState) => {
+        return { ...prevState, results: results };
+      });
+    });
+  };
+
+  useEffect(() => {
+    getJsonData();
+  }, [])
+
   return (
     <View>
       <View style={styles.ContentContainer}>
@@ -24,12 +44,31 @@ const LeagueScreen = () => {
       </View>
 
         <View style={styles.titles}>
-          <Text style={styles.title}>LEAGUES</Text>
-          <Text style={styles.subtitle}>Here at BetterBetter you will be able to determine your bets from specific data, 
-                                        that you can find for every match you search up. It has never 
-                                        been easier to find the average amount of corners, 
-                                        goals scored or goals conceded per match. Create your bets, with the help of our data.</Text>
-        </View>
+          <DataTable>
+            <DataTable.Header>
+              <DataTable.Title style={{ flex: 1.6 }}>
+                <Text style={styles.title}>League</Text>
+              </DataTable.Title>
+              <DataTable.Title>
+                <Text style={styles.title}>Active Season</Text>
+              </DataTable.Title>
+            </DataTable.Header>
+
+            {state.results.map((result) => (
+              <View key={result.id} style={styles.tableText}>
+                  <DataTable.Row>
+                    <DataTable.Cell style={{ flex: 1.6 }}>
+                      <Text style={styles.subtitle}>{result.name}</Text>
+                    </DataTable.Cell>
+
+                    <DataTable.Cell>
+                      <Text style={styles.subtitle}>Ongoing</Text>
+                    </DataTable.Cell>
+                  </DataTable.Row>
+              </View>
+            ))}
+          </DataTable>
+          </View>
     </View>
   );
 };

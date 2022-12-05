@@ -30,6 +30,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderColor: 'black',
         borderWidth: 1
-    }
+    },
+
+    title: {
+        fontSize: heightPercentageToDP('2.5%'),
+        fontWeight: '300',
+        color: 'white',
+        letterSpacing: 1.2,
+        marginBottom: hp('5%'),
+    },
 })
     export default styles;

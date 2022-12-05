@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
         opacity: 1
     },
     titles: {
-        marginTop: hp('62%'),
+        marginTop: hp('55%'),
         width: wp('100%'),
         alignItems: 'center',
         position: 'absolute'
     },
     title: {
-        fontSize: heightPercentageToDP('2.5%'),
+        fontSize: heightPercentageToDP('2.2%'),
         fontWeight: '300',
         color: 'white',
         letterSpacing: 1.2
@@ -35,6 +35,10 @@ const styles = StyleSheet.create({
         marginLeft: wp('7%'),
         marginRight: wp('7%'),
         letterSpacing: 1.2
+    },
+    leagueTable: {
+        marginTop: hp('4%'),
+        marginBottom: hp('1%'),
     },
 })
     export default styles;

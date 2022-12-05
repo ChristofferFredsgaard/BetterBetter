@@ -16,8 +16,6 @@ const handleSignOut = () => {
     .catch(error => alert(error.message))
 }
 
-//const user = firebase.auth().currentUser.email
-
 const ProfileScreen = () => {
   return (
     <View>
