@@ -26,10 +26,10 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   if (!firebase.apps.length) {
-    console.log('Connected with Firebase')
     firebase.initializeApp(apiKeys.firebaseConfig);
+    console.log('Connected with Firebase')
   }
-  
+
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
