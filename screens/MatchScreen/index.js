@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, SectionList, FlatList } from 'react-native';
+import { Text, View } from 'react-native';
 
 // Firebase Imports
 // import firebase from 'firebase/compat/app'

@@ -13,10 +13,12 @@ const styles = StyleSheet.create({
         height: hp('50%'),
         opacity: 1
     },
+    leagueSeparation: {
+        marginTop: hp('2.5%'),
+    },
     titles: {
-        marginTop: hp('55%'),
+        marginTop: hp('15%'),
         width: wp('100%'),
-        alignItems: 'center',
         position: 'absolute'
     },
     title: {
@@ -30,10 +32,7 @@ const styles = StyleSheet.create({
         color: '#555',
         fontWeight: '100',
         color: 'white',
-        textAlign: 'center',
         marginTop: hp('1%'),
-        marginLeft: wp('7%'),
-        marginRight: wp('7%'),
         letterSpacing: 1.2
     },
     leagueTable: {

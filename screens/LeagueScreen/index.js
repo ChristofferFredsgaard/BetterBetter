@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Text,View,Image,TouchableHighlight,ScrollView} from "react-native";
+import {Text,View,Image,ScrollView, Pressable} from "react-native";
 import axios from "axios";
 import { DataTable } from 'react-native-paper';
 
@@ -17,9 +17,9 @@ const LeagueScreen = () => {
     selected: {},
   });
 
-  var standings = "https://soccer.sportmonks.com/api/v2.0/leagues?api_token=FYNhuIUF1XaTFKnLqL6WCkU2vyskoZoS0K6LVvmb5ggpQl0o5s8UGNut4GPe";
+  var leagues = "https://soccer.sportmonks.com/api/v2.0/leagues?include=country&api_token=FYNhuIUF1XaTFKnLqL6WCkU2vyskoZoS0K6LVvmb5ggpQl0o5s8UGNut4GPe";
   const getJsonData = () => {
-    axios(standings).then(({ data }) => {
+    axios(leagues).then(({ data }) => {
       let results = data.data;
       //console.log(axios);
       console.log(results);
@@ -43,32 +43,34 @@ const LeagueScreen = () => {
         </View>
       </View>
 
-        <View style={styles.titles}>
-          <DataTable>
-            <DataTable.Header>
-              <DataTable.Title style={{ flex: 1.6 }}>
-                <Text style={styles.title}>League</Text>
-              </DataTable.Title>
-              <DataTable.Title>
-                <Text style={styles.title}>Active Season</Text>
-              </DataTable.Title>
-            </DataTable.Header>
+        <ScrollView style={styles.titles}>
+          {state.results.map((result) => (
+            <View key={result.id} style={styles.leagueSeparation}>
+              <DataTable>
+                <DataTable.Header>
+                  <DataTable.Title style={{ flex:0.6 }}>
+                    <Text style={styles.title}>Country</Text>
+                  </DataTable.Title>
+                  <DataTable.Title>
+                    <Text style={styles.title}>League</Text>
+                  </DataTable.Title>
+                </DataTable.Header>
 
-            {state.results.map((result) => (
-              <View key={result.id} style={styles.tableText}>
-                  <DataTable.Row>
-                    <DataTable.Cell style={{ flex: 1.6 }}>
-                      <Text style={styles.subtitle}>{result.name}</Text>
-                    </DataTable.Cell>
+                  <View style={styles.tableText}>
+                      <DataTable.Row>
+                        <DataTable.Cell style={{ flex: 0.6 }}>
+                          <Text style={styles.subtitle}>{result.country.data.name}</Text>
+                        </DataTable.Cell>
 
-                    <DataTable.Cell>
-                      <Text style={styles.subtitle}>Ongoing</Text>
-                    </DataTable.Cell>
-                  </DataTable.Row>
-              </View>
-            ))}
-          </DataTable>
-          </View>
+                        <DataTable.Cell>
+                            <Text style={styles.subtitle}>{result.name}</Text>
+                        </DataTable.Cell>
+                      </DataTable.Row>
+                  </View>
+              </DataTable>
+            </View>
+          ))}
+        </ScrollView>
     </View>
   );
 };
