@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp, heightPercentageToDP} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
     ContentContainer: {
@@ -19,16 +19,17 @@ const styles = StyleSheet.create({
     titles: {
         marginTop: hp('15%'),
         width: wp('100%'),
+        height: hp('75%'),
         position: 'absolute'
     },
     title: {
-        fontSize: heightPercentageToDP('2.2%'),
+        fontSize: hp('1.8%'),
         fontWeight: '300',
         color: 'white',
-        letterSpacing: 1.2
+        letterSpacing: 1.2,
     },
     subtitle: {
-        fontSize: heightPercentageToDP('2%'),
+        fontSize: hp('1.7%'),
         color: '#555',
         fontWeight: '100',
         color: 'white',

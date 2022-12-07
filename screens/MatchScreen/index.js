@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, Image, ScrollView, TouchableHighlight, Alert } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { Text, View, ScrollView, Image, Modal, TouchableHighlight } from 'react-native';
 import axios from "axios";
-import { DataTable } from 'react-native-paper';
+import { DataTable } from "react-native-paper";
 
-// Firebase Imports
+//Firebase Imports
 // import firebase from 'firebase/compat/app'
 // import 'firebase/compat/auth'
 
-import styles from './styles'
-import Header from '../../components/header/header'
-import ApiCalls from '../../components/api_calls/calls'
+//Styles
+import styles from "./styles";
+import modalStyles from './modalStyles'
+
+//Section Imports
+import Header from "../../components/header/header";
+
+//Api Calls
+import ApiCalls from "../../components/api_calls/calls";
 import apiImport from "../../config/keys";
 
 const image = {
@@ -17,31 +23,46 @@ const image = {
 };
 
 const MatchScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [state, setState] = useState({
     results: [],
-    selected: {},
-  });
+    selected: {}
+});
 
-  const consoleTester = () => {
-    console.log(/*log data fra kampen der bliver trykket på*/)
-    Alert.alert("This feature is still under construction...")
-  }
+  //Token
+  var token = ApiCalls.ApiToken.Token;
+  //Games
+  var games = ApiCalls.Fixtures.DecToApril;
+  //Predictions
+  var predictions = ApiCalls.Predictions.GamePrediction;
 
-  var leagues = ApiCalls.Fixtures.DecToApril;
-  const getJsonData = () => {
-    axios(leagues).then(({ data }) => {
+  const getLeagueData = () => {
+    axios(games).then(({ data }) => {
       let results = data.data;
-      //console.log(axios);
       console.log(results);
-      setState((prevState) => {
-        return { ...prevState, results: results };
-      });
+      setState(prevState => {
+        return { ...prevState, results: results }
+      })
     });
   };
 
+  const getPredictionData = id => {
+    axios(predictions+id+token).then(({ data }) => {
+        let result = data;
+
+        console.log(result);
+        console.log(id)
+
+        setState(prevState => {
+          return { ...prevState, selected: result }
+        });
+    });
+}
+
   useEffect(() => {
-    getJsonData();
-  }, [])
+    getLeagueData();
+  }, []);
 
   return (
     <View>
@@ -52,44 +73,69 @@ const MatchScreen = () => {
           <Image source={image} style={styles.image}></Image>
         </View>
       </View>
-              <View style={styles.titles}>
-              <DataTable>
-                <DataTable.Header>
-                  <DataTable.Title>
-                    <Text style={styles.title}>Hometeam</Text>
-                  </DataTable.Title>
-                  <DataTable.Title>
-                    <Text style={styles.title}>Time</Text>
-                  </DataTable.Title>
-                  <DataTable.Title>
-                    <Text style={styles.title}>Awayteam</Text>
-                  </DataTable.Title>
-                </DataTable.Header>
 
-                <ScrollView>
-                {state.results.map((result) => (
-                  <View key={result.id} style={styles.tableText}>
-                    <TouchableHighlight onPress={() => consoleTester()}>
-                      <DataTable.Row>
-                        <DataTable.Cell>
-                          <Text style={styles.subtitle}>{result.localTeam.data.name}</Text>
-                        </DataTable.Cell>
+      {/* ScrollView + Display data in sheet */}
+      <View style={styles.titles}>
+        <DataTable>
+          <DataTable.Header>
+            <DataTable.Title>
+              <Text style={styles.title}>Hometeam</Text>
+            </DataTable.Title>
+            <DataTable.Title>
+              <Text style={styles.title}>Time</Text>
+            </DataTable.Title>
+            <DataTable.Title>
+              <Text style={styles.title}>Awayteam</Text>
+            </DataTable.Title>
+          </DataTable.Header>
 
-                        <DataTable.Cell>
-                            <Text style={styles.subtitle}>{result.time.starting_at.date} </Text>
-                        </DataTable.Cell>
+          <ScrollView>
+            {state.results.map((result) => (
+                <TouchableHighlight key={result.id} style={styles.tableText} onPress={() => getPredictionData(result.id) + setModalVisible(true)}>
+                  <DataTable.Row>
+                    <DataTable.Cell>
+                      <Text style={styles.subtitle}>
+                        {result.localTeam.data.name}
+                      </Text>
+                    </DataTable.Cell>
 
-                        <DataTable.Cell>
-                            <Text style={styles.subtitle}>{result.visitorTeam.data.name}</Text>
-                        </DataTable.Cell>
-                      </DataTable.Row>
-                    </TouchableHighlight>
-                  </View>
-                ))}
-            </ScrollView>
+                    <DataTable.Cell>
+                      <Text style={styles.subtitle}>
+                        {result.time.starting_at.date}
+                      </Text>
+                    </DataTable.Cell>
 
-              </DataTable>
-              </View>
+                    <DataTable.Cell>
+                      <Text style={styles.subtitle}>
+                        {result.visitorTeam.data.name}
+                      </Text>
+                    </DataTable.Cell>
+                  </DataTable.Row>
+                </TouchableHighlight>
+            ))}
+          </ScrollView>
+        </DataTable>
+      </View>
+
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={modalVisible}
+      >
+        {/* <Header /> */}
+        <View style={modalStyles.msContainer}>
+          <View style={modalStyles.msText}>
+            <Text>{state.selected}</Text>
+
+            <TouchableHighlight
+              style={modalStyles.msTouchableHighlight}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={modalStyles.msClose}>CLOSE</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

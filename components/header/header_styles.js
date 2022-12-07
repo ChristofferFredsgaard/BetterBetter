@@ -3,7 +3,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 const styles = StyleSheet.create({
     headerContainer: {
-        zIndex: 100,
         resizeMode: 'contain',
         position: 'relative',
         padding: wp('2%'),
