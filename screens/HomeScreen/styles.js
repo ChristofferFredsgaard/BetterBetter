@@ -11,10 +11,10 @@ const styles = StyleSheet.create({
         marginTop: hp('10%'),
         width: wp('100%'),
         height: hp('50%'),
-        opacity: 1
+        opacity: 0.3,
     },
     titles: {
-        marginTop: hp('62%'),
+        marginTop: hp('55%'),
         width: wp('100%'),
         alignItems: 'center',
         position: 'absolute'

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         marginTop: hp('10%'),
         width: wp('100%'),
         height: hp('50%'),
-        opacity: 1
+        opacity: 0.3
     },
     leagueSeparation: {
         marginTop: hp('2.5%'),

@@ -11,30 +11,34 @@ const styles = StyleSheet.create({
         marginTop: hp('10%'),
         width: wp('100%'),
         height: hp('50%'),
-        opacity: 1
+        opacity: 0.3
+    },
+    leagueSeparation: {
+        marginTop: hp('2.5%'),
     },
     titles: {
-        marginTop: hp('62%'),
+        marginTop: hp('15%'),
         width: wp('100%'),
-        alignItems: 'center',
+        height: hp('75%'),
         position: 'absolute'
     },
     title: {
-        fontSize: heightPercentageToDP('2.5%'),
+        fontSize: heightPercentageToDP('1.8%'),
         fontWeight: '300',
         color: 'white',
-        letterSpacing: 1.2
+        letterSpacing: 1.2,
     },
     subtitle: {
-        fontSize: heightPercentageToDP('2%'),
+        fontSize: heightPercentageToDP('1.7%'),
         color: '#555',
         fontWeight: '100',
         color: 'white',
-        textAlign: 'center',
         marginTop: hp('1%'),
-        marginLeft: wp('7%'),
-        marginRight: wp('7%'),
         letterSpacing: 1.2
+    },
+    leagueTable: {
+        marginTop: hp('4%'),
+        marginBottom: hp('1%'),
     },
 })
     export default styles;

@@ -9,7 +9,7 @@ const Header = () => {
 
     return (
         <View style={styles.headerContainer}>
-            <Text style={styles.headerSubtitle}>YOU'RE BECOMING A</Text>
+            <Text style={styles.headerSubtitle}>Become the</Text>
             <Text style={styles.headerTitle}>BetterBetter</Text>
             <Image source={image} style={styles.profileContainer}></Image>
         </View>
