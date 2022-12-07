@@ -11,6 +11,7 @@
     "@react-navigation/native": "^6.0.13",
     "axios": "^1.2.0",
     "expo": "~46.0.16",
+    "expo-constants": "^14.0.2",
     "expo-splash-screen": "^0.17.5",
     "expo-status-bar": "~1.4.0",
     "expo-updates": "^0.14.7",

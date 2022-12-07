@@ -91,7 +91,7 @@ const MatchScreen = () => {
 
           <ScrollView>
             {state.results.map((result) => (
-                <TouchableHighlight key={result.id} style={styles.tableText} onPress={() => getPredictionData(result.id) + setModalVisible(true)}>
+                <TouchableHighlight key={result.id} onPress={() => getPredictionData(result.id) + setModalVisible(true)}>
                   <DataTable.Row>
                     <DataTable.Cell>
                       <Text style={styles.subtitle}>

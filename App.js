@@ -11,13 +11,13 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
 
-//Screens - users folder
+//Screens - Logged in
 import HomeScreen from "./screens/HomeScreen";
 import MatchScreen from "./screens/MatchScreen";
+import SearchScreen from "./screens/SearchScreen";
 import LeagueScreen from "./screens/LeagueScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import LiveScreen from "./screens/LiveScreen";
-
+//Screens - Not Logged in
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignupScreen";
 
@@ -112,7 +112,7 @@ export default function App() {
             options={{
               tabBarLabel: "Matches",
               tabBarIcon: ({ color, size }) => (
-                <Ionicons name="calendar" color={color} size={size} />
+                <Ionicons name="football-outline" color={color} size={size} />
               ),
               tabBarStyle: {
                 borderTopColor: "#353535",
@@ -123,11 +123,11 @@ export default function App() {
   
           <Tab.Screen
             name="Live-Matches"
-            component={LiveScreen}
+            component={SearchScreen}
             options={{
-              tabBarLabel: "Live-Matches",
+              tabBarLabel: "Search",
               tabBarIcon: ({ color, size }) => (
-                <Ionicons name="football-outline" color={color} size={size} />
+                <Ionicons name="search" color={color} size={size} />
               ),
               tabBarStyle: {
                 borderTopColor: "#353535",

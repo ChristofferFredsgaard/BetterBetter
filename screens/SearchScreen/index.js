@@ -4,9 +4,6 @@ import {
   View,
   TextInput,
   ScrollView,
-  Image,
-  Modal,
-  TouchableHighlight,
 } from "react-native";
 import axios from "axios";
 import { DataTable } from "react-native-paper";
@@ -35,7 +32,7 @@ var predictions = ApiCalls.Predictions.GamePrediction;
 //Search
 var clubSearch = ApiCalls.ClubSearch.Search;
 
-const LiveScreen = () => {
+const SearchScreen = () => {
   const [state, setState] = useState({
     s: "",
     results: [],
@@ -84,7 +81,7 @@ const LiveScreen = () => {
 
           <ScrollView>
             {state.results.map((result) => (
-              <TouchableHighlight
+              <View
                 key={result.id}
                 style={styles.tableText}
                 onPress={() => openPopup(result.id)}
@@ -102,7 +99,7 @@ const LiveScreen = () => {
                     <Text style={styles.subtitle}>{result.founded}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
-              </TouchableHighlight>
+              </View>
             ))}
           </ScrollView>
         </DataTable>
@@ -111,4 +108,4 @@ const LiveScreen = () => {
   );
 };
 
-export default LiveScreen;
+export default SearchScreen;
