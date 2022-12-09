@@ -1,8 +1,7 @@
 //Standard Imports
 import React, {useState, useEffect} from "react";
-import { Text, View } from "react-native"
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from "@expo/vector-icons";
 
 //Firebase Imports
@@ -20,6 +19,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 //Screens - Not Logged in
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignupScreen";
+import TeamdataScreen from "./screens/TeamdataScreen";
 
 //Configuring Tab Navigator
 const Tab = createBottomTabNavigator();
@@ -122,7 +122,7 @@ export default function App() {
           />
   
           <Tab.Screen
-            name="Live-Matches"
+            name="Search"
             component={SearchScreen}
             options={{
               tabBarLabel: "Search",
@@ -158,6 +158,21 @@ export default function App() {
               tabBarLabel: "Profile",
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="person" color={color} size={size} />
+              ),
+              tabBarStyle: {
+                borderTopColor: "#353535",
+                backgroundColor: "#353535",
+              },
+            }}
+          />
+          <Tab.Screen
+            
+            name="Teamdata"
+            component={TeamdataScreen}
+            options={{
+              tabBarLabel: "Analytics",
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="analytics" color={color} size={size} />
               ),
               tabBarStyle: {
                 borderTopColor: "#353535",

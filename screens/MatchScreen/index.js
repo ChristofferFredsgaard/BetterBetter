@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, Image, Modal, TouchableHighlight } from 'react-native';
+import { Text, View, ScrollView, Image, Modal, TouchableHighlight, Alert } from 'react-native';
 import axios from "axios";
 import { DataTable } from "react-native-paper";
 
@@ -27,7 +27,7 @@ const MatchScreen = () => {
 
   const [state, setState] = useState({
     results: [],
-    selected: {}
+    selected: [],
 });
 
   //Token
@@ -52,7 +52,7 @@ const MatchScreen = () => {
         let result = data;
 
         console.log(result);
-        console.log(id)
+        console.log(id);
 
         setState(prevState => {
           return { ...prevState, selected: result }
@@ -74,7 +74,6 @@ const MatchScreen = () => {
         </View>
       </View>
 
-      {/* ScrollView + Display data in sheet */}
       <View style={styles.titles}>
         <DataTable>
           <DataTable.Header>
@@ -91,7 +90,8 @@ const MatchScreen = () => {
 
           <ScrollView>
             {state.results.map((result) => (
-                <TouchableHighlight key={result.id} onPress={() => getPredictionData(result.id) + setModalVisible(true)}>
+              <View key={result.id}>
+                <TouchableHighlight onPress={() => getPredictionData(result.id) + setModalVisible(true)}>
                   <DataTable.Row>
                     <DataTable.Cell>
                       <Text style={styles.subtitle}>
@@ -112,6 +112,7 @@ const MatchScreen = () => {
                     </DataTable.Cell>
                   </DataTable.Row>
                 </TouchableHighlight>
+              </View>
             ))}
           </ScrollView>
         </DataTable>
@@ -121,19 +122,21 @@ const MatchScreen = () => {
         animationType="slide"
         transparent={false}
         visible={modalVisible}
+        onShow={getPredictionData} 
       >
         {/* <Header /> */}
         <View style={modalStyles.msContainer}>
-          <View style={modalStyles.msText}>
-            <Text>{state.selected}</Text>
+            <View style={modalStyles.msText}>
+                
+              <Text style={modalStyles.msText}>Thanks</Text>
 
-            <TouchableHighlight
-              style={modalStyles.msTouchableHighlight}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={modalStyles.msClose}>CLOSE</Text>
-            </TouchableHighlight>
-          </View>
+              <TouchableHighlight
+                style={modalStyles.msTouchableHighlight}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={modalStyles.msClose}>CLOSE</Text>
+              </TouchableHighlight>
+            </View>
         </View>
       </Modal>
     </View>

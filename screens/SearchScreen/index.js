@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   ScrollView,
+  TouchableHighlight,
 } from "react-native";
 import axios from "axios";
 import { DataTable } from "react-native-paper";
@@ -25,14 +26,8 @@ import apiImport from "../../config/keys";
 
 //Token
 var token = ApiCalls.ApiToken.Token;
-//Games
-var games = ApiCalls.Fixtures.DecToApril;
-//Predictions
-var predictions = ApiCalls.Predictions.GamePrediction;
-//Search
-var clubSearch = ApiCalls.ClubSearch.Search;
 
-const SearchScreen = () => {
+const SearchScreen = ({route, navigation}) => {
   const [state, setState] = useState({
     s: "",
     results: [],
@@ -40,7 +35,7 @@ const SearchScreen = () => {
   });
 
   const search = () => {
-    axios(clubSearch + state.s + token).then(({ data }) => {
+    axios("https://soccer.sportmonks.com/api/v2.0/teams/search/"+state.s+token).then(({ data }) => {
       let results = data.data;
       console.log(axios);
       console.log(results);
@@ -74,17 +69,17 @@ const SearchScreen = () => {
             <DataTable.Title>
               <Text style={styles.title}>Short</Text>
             </DataTable.Title>
-            <DataTable.Title>
+            <DataTable.Title style={{ flex: 1.3 }}>
               <Text style={styles.title}>Founded</Text>
             </DataTable.Title>
           </DataTable.Header>
 
           <ScrollView>
             {state.results.map((result) => (
-              <View
+              <TouchableHighlight
                 key={result.id}
                 style={styles.tableText}
-                onPress={() => openPopup(result.id)}
+                onPress={() => navigation.navigate('Teamdata', {name: result.name, season: result.current_season_id})}
               >
                 <DataTable.Row>
                   <DataTable.Cell style={{ flex: 2.5 }}>
@@ -95,11 +90,11 @@ const SearchScreen = () => {
                     <Text style={styles.subtitle}>{result.short_code}</Text>
                   </DataTable.Cell>
 
-                  <DataTable.Cell>
+                  <DataTable.Cell style={{ flex: 1.3 }}>
                     <Text style={styles.subtitle}>{result.founded}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
-              </View>
+              </TouchableHighlight>
             ))}
           </ScrollView>
         </DataTable>

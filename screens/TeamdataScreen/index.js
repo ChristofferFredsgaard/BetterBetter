@@ -1,0 +1,68 @@
+import React, { useEffect, useState } from "react";
+import { Text, View, ScrollView, Image } from 'react-native';
+import axios from "axios";
+import { DataTable } from "react-native-paper";
+
+//Firebase Imports
+// import firebase from 'firebase/compat/app'
+// import 'firebase/compat/auth'
+
+//Styles
+import styles from "./styles";
+
+//Section Imports
+import Header from "../../components/header/header";
+
+//Api Calls
+import ApiCalls from "../../components/api_calls/calls";
+
+const image = {
+  uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png",
+};
+
+const TeamdataScreen = ({route, navigation}) => {
+    const { name, season } = route.params;
+
+  const [state, setState] = useState({
+    results: [],
+    selected: [],
+});
+
+  //Token
+  var token = ApiCalls.ApiToken.Token;
+
+  //Includes
+  var includes = "?include=stats&"
+
+  const getTeamData = () => {
+    axios("https://soccer.sportmonks.com/api/v2.0/teams/search/"+name+includes+season+token).then(({ data }) => {
+      let results = data.data;
+      console.log(results);
+      setState(prevState => {
+        return { ...prevState, results: results }
+      })
+    });
+  };
+
+  useEffect(() => {
+    getTeamData();
+  }, []);
+
+  return (
+    <View>
+      <View style={styles.ContentContainer}>
+        <Header />
+
+        <View style={styles.logo}>
+          <Image source={image} style={styles.image}></Image>
+        </View>
+      </View>
+
+      <View style={styles.titles}>
+        <Text style={styles.title}>{name}</Text>
+      </View>
+    </View>
+  );
+};
+
+export default TeamdataScreen;

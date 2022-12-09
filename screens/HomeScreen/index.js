@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Button } from 'react-native';
 
 //Firebase Imports
 import firebase from 'firebase/compat/app'
@@ -11,7 +11,7 @@ import Header from '../../components/header/header'
 
 const image = { uri: "https://freepngimg.com/thumb/wave/110541-white-wave-free-hq-image.png" };
 
-const HomeScreen = () => {
+const HomeScreen = ({route, navigation}) => {
   return (
     <View>
         <View style={styles.ContentContainer}>
@@ -28,6 +28,8 @@ const HomeScreen = () => {
               Be sure to use our application to ensure you choose a bet that suits you're betting chances.
               Don't be afraid give it a try!
               </Text>
+              {/* <Button title="Go back" onPress={() => navigation.navigate('Search')} /> */}
+
           </View>
         </View>
     </View>

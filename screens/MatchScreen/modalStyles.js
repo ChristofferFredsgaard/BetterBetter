@@ -21,7 +21,7 @@ const modalStyles = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'top',
         color: 'white',
-        fontSize: 36,
+        fontSize: 18,
     },
 
     msTouchableHighlight: {
