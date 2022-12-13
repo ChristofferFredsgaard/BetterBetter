@@ -165,21 +165,6 @@ export default function App() {
               },
             }}
           />
-          <Tab.Screen
-            
-            name="Teamdata"
-            component={TeamdataScreen}
-            options={{
-              tabBarLabel: "Analytics",
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="analytics" color={color} size={size} />
-              ),
-              tabBarStyle: {
-                borderTopColor: "#353535",
-                backgroundColor: "#353535",
-              },
-            }}
-          />
         </Tab.Navigator>
       </NavigationContainer>
     ); 

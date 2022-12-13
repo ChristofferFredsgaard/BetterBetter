@@ -21,23 +21,25 @@ const image = {
 };
 
 const TeamdataScreen = ({route, navigation}) => {
-    const { name, season } = route.params;
+    const { clubID, season } = route.params;
 
-  const [state, setState] = useState({
-    results: [],
-    selected: [],
-});
+    const [state, setState] = useState({
+        results: [],
+        selected: {}
+    });
 
   //Token
   var token = ApiCalls.ApiToken.Token;
 
   //Includes
-  var includes = "?include=stats&"
+  var includes = "?include=stats&seasons="
+
+  var test = "https://soccer.sportmonks.com/api/v2.0/teams/"+clubID+"?&include=stats&seasons="+season+"&api_token=FYNhuIUF1XaTFKnLqL6WCkU2vyskoZoS0K6LVvmb5ggpQl0o5s8UGNut4GPe"
 
   const getTeamData = () => {
-    axios("https://soccer.sportmonks.com/api/v2.0/teams/search/"+name+includes+season+token).then(({ data }) => {
-      let results = data.data;
-      console.log(results);
+    axios(test).then(({ data }) => {
+        let results = data.data;
+        console.log(results);
       setState(prevState => {
         return { ...prevState, results: results }
       })
@@ -59,7 +61,12 @@ const TeamdataScreen = ({route, navigation}) => {
       </View>
 
       <View style={styles.titles}>
-        <Text style={styles.title}>{name}</Text>
+        {/* {state.results.map((result) => (
+            <View key={result.id} style={styles.tableText}>
+                <Text>{result.name}</Text>
+            </View>
+        ))} */}
+        <Text>{season}</Text>
       </View>
     </View>
   );

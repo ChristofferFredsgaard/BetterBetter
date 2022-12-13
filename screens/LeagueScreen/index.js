@@ -44,7 +44,7 @@ const LeagueScreen = () => {
         </View>
       </View>
 
-        <ScrollView style={styles.titles}>
+        <View style={styles.titles}>
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title style={{ flex:0.6 }}>
@@ -56,7 +56,7 @@ const LeagueScreen = () => {
                 </DataTable.Header>
 
                 {state.results.map((result) => (
-                  <View key={result.id} style={styles.tableText}>
+                  <ScrollView key={result.id} style={styles.tableText}>
                       <DataTable.Row>
                         <DataTable.Cell style={{ flex: 0.6 }}>
                           <Text style={styles.subtitle}>{result.country.data.name}</Text>
@@ -66,11 +66,11 @@ const LeagueScreen = () => {
                             <Text style={styles.subtitle}>{result.name}</Text>
                         </DataTable.Cell>
                       </DataTable.Row>
-                  </View>
+                  </ScrollView>
                 ))}
 
               </DataTable>
-        </ScrollView>
+        </View>
     </View>
   );
 };

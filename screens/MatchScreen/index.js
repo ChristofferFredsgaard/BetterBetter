@@ -124,7 +124,6 @@ const MatchScreen = () => {
         visible={modalVisible}
         onShow={getPredictionData} 
       >
-        {/* <Header /> */}
         <View style={modalStyles.msContainer}>
             <View style={modalStyles.msText}>
                 
