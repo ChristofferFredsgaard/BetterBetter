@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, Image, Pressable } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import axios from "axios";
-import { DataTable, Modal } from "react-native-paper";
+import { DataTable } from "react-native-paper";
 
 //Firebase Imports
 // import firebase from 'firebase/compat/app'
