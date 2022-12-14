@@ -5,10 +5,11 @@ import {
   TextInput,
   ScrollView,
   TouchableHighlight,
+  Pressable,
 } from "react-native";
 import axios from "axios";
 import { DataTable, Modal } from "react-native-paper";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //Firebase Imports
 // import firebase from 'firebase/compat/app'
@@ -23,6 +24,7 @@ import Analytics from "../analytics/analytics";
 
 //Token
 var token = ApiCalls.ApiToken.Token;
+var teamSearch = "https://soccer.sportmonks.com/api/v2.0/teams/search/";
 
 const Search = () => {
   //Modal
@@ -36,24 +38,23 @@ const Search = () => {
 
   const search = () => {
     axios(
-      "https://soccer.sportmonks.com/api/v2.0/teams/search/" + state.s + token
+      teamSearch + state.s + token
     ).then(({ data }) => {
       let results = data.data;
-      console.log(results)
+      console.log(results);
 
       results.map(async (item) => {
         const ids = {};
-        
+
         ids.name = item.name;
         ids.id = item.id;
         ids.season = item.current_season_id;
 
         try {
-          await AsyncStorage.setItem('ids', JSON.stringify(ids))
-          console.log(ids)
-
+          await AsyncStorage.setItem("ids", JSON.stringify(ids));
+          console.log(ids);
         } catch (e) {
-          console.log("Error")
+          console.log("Error");
         }
       });
 
@@ -119,11 +120,14 @@ const Search = () => {
         </DataTable>
       </View>
 
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <Modal animationType="slide" visible={modalVisible}>
+        <Pressable
+          style={styles.button}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <Text style={styles.textStyle}>←</Text>
+        </Pressable>
         <Analytics />
-        <TouchableHighlight style={styles.msTouchableHighlight}>
-          <Text style={styles.msClose}>CLOSE</Text>
-        </TouchableHighlight>
       </Modal>
     </View>
   );

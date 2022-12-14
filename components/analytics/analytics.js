@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, Pressable } from "react-native";
 import axios from "axios";
 import { DataTable } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-//Firebase Imports
-// import firebase from 'firebase/compat/app'
-// import 'firebase/compat/auth'
 
 //Styles
 import styles from "./analytics_styles";
@@ -31,19 +27,13 @@ const Analytics = () => {
 
   const getTeamData = async () => {
     try {
-      //   const value = await AsyncStorage.getItem("ids");
       const ids = await AsyncStorage.getItem("ids");
       const idsObject = ids !== null ? JSON.parse(ids) : {};
       const clubId = idsObject.id;
       const seasonId = idsObject.season;
       const clubName = idsObject.name;
 
-      var clubStatistic =
-        teams +
-        clubId +
-        includes +
-        seasonId +
-        token;
+      var clubStatistic = teams + clubId + includes + seasonId + token;
 
       axios(clubStatistic).then(({ data }) => {
         let results = data.data.stats.data;
@@ -71,7 +61,7 @@ const Analytics = () => {
             <DataTable>
               <DataTable.Header>
                 <DataTable.Title>
-                  <Text style={styles.title}>CLUBNAME</Text>
+                  <Text style={styles.subtitle}>CLUBNAME</Text>
                 </DataTable.Title>
               </DataTable.Header>
 
