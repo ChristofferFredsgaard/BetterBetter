@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, Pressable } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import axios from "axios";
 import { DataTable } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
