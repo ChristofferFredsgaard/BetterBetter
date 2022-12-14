@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#303030',
         width: wp('110%'),
-        height: hp('3%')
+        height: hp('3%'),
     },
 });
 

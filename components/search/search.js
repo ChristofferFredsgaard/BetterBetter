@@ -5,10 +5,10 @@ import {
   TextInput,
   ScrollView,
   TouchableHighlight,
-  Pressable,
 } from "react-native";
 import axios from "axios";
 import { DataTable, Modal } from "react-native-paper";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Firebase Imports
 // import firebase from 'firebase/compat/app'
@@ -16,9 +16,6 @@ import { DataTable, Modal } from "react-native-paper";
 
 //Styles
 import styles from "./search_styles";
-
-//Section Imports
-import Header from "../../components/header/header";
 
 //Api Calls
 import ApiCalls from "../../components/api_calls/calls";
@@ -42,7 +39,24 @@ const Search = () => {
       "https://soccer.sportmonks.com/api/v2.0/teams/search/" + state.s + token
     ).then(({ data }) => {
       let results = data.data;
-      console.log(results);
+      console.log(results)
+
+      results.map(async (item) => {
+        const ids = {};
+        
+        ids.name = item.name;
+        ids.id = item.id;
+        ids.season = item.current_season_id;
+
+        try {
+          await AsyncStorage.setItem('ids', JSON.stringify(ids))
+          console.log(ids)
+
+        } catch (e) {
+          console.log("Error")
+        }
+      });
+
       setState((prevState) => {
         return { ...prevState, results: results };
       });
@@ -104,9 +118,12 @@ const Search = () => {
           </ScrollView>
         </DataTable>
       </View>
-      
+
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <Analytics />
+        <TouchableHighlight style={styles.msTouchableHighlight}>
+          <Text style={styles.msClose}>CLOSE</Text>
+        </TouchableHighlight>
       </Modal>
     </View>
   );

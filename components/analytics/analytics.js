@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
 import axios from "axios";
 import { DataTable } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //Firebase Imports
 // import firebase from 'firebase/compat/app'
@@ -15,33 +16,46 @@ import styles from "./analytics_styles";
 //Api Calls
 import ApiCalls from "../../components/api_calls/calls";
 
+//Token
+var token = ApiCalls.ApiToken.Token;
+
+//Includes
+var teams = "https://soccer.sportmonks.com/api/v2.0/teams/";
+var includes = "?&include=stats&seasons=";
+
 const Analytics = () => {
   const [state, setState] = useState({
     results: [],
     selected: {},
   });
 
-  //Token
-  var token = ApiCalls.ApiToken.Token;
+  const getTeamData = async () => {
+    try {
+      //   const value = await AsyncStorage.getItem("ids");
+      const ids = await AsyncStorage.getItem("ids");
+      const idsObject = ids !== null ? JSON.parse(ids) : {};
+      const clubId = idsObject.id;
+      const seasonId = idsObject.season;
+      const clubName = idsObject.name;
 
-  //Includes
-  var includes = "?include=stats&seasons=";
+      var clubStatistic =
+        teams +
+        clubId +
+        includes +
+        seasonId +
+        token;
 
-  var test =
-    "https://soccer.sportmonks.com/api/v2.0/teams/" +
-    62 +
-    "?&include=stats&seasons=" +
-    19735 +
-    "&api_token=FYNhuIUF1XaTFKnLqL6WCkU2vyskoZoS0K6LVvmb5ggpQl0o5s8UGNut4GPe";
+      axios(clubStatistic).then(({ data }) => {
+        let results = data.data.stats.data;
+        console.log(results);
 
-  const getTeamData = () => {
-    axios(test).then(({ data }) => {
-      let results = data.data.stats.data;
-      console.log(results);
-      setState((prevState) => {
-        return { ...prevState, results: results };
+        setState((prevState) => {
+          return { ...prevState, results: results };
+        });
       });
-    });
+    } catch (error) {
+      console.log("ERROR WITH ASYNC STORAGE");
+    }
   };
 
   useEffect(() => {
@@ -55,6 +69,12 @@ const Analytics = () => {
           <View>
             {/* GENERAL SECTION */}
             <DataTable>
+              <DataTable.Header>
+                <DataTable.Title>
+                  <Text style={styles.title}>CLUBNAME</Text>
+                </DataTable.Title>
+              </DataTable.Header>
+
               <DataTable.Header>
                 <DataTable.Title>
                   <Text style={styles.title}>GENERAL</Text>
@@ -184,7 +204,9 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>{result.avg_ball_possession_percentage}%</Text>
+                    <Text style={styles.body}>
+                      {result.avg_ball_possession_percentage}%
+                    </Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
@@ -293,9 +315,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.avg_player_rating}
-                    </Text>
+                    <Text style={styles.body}>{result.avg_player_rating}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
@@ -481,7 +501,7 @@ const Analytics = () => {
 
             {/* GAME RESULTS */}
             <DataTable>
-              <DataTable.Header>
+              <DataTable.Header style={styles.section}>
                 <DataTable.Title>
                   <Text style={styles.title}>GAME RESULTS & GOALS</Text>
                 </DataTable.Title>
@@ -501,9 +521,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.win.total}
-                    </Text>
+                    <Text style={styles.body}>{result.win.total}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -513,9 +531,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.win.home}
-                    </Text>
+                    <Text style={styles.body}>{result.win.home}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -525,9 +541,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.win.away}
-                    </Text>
+                    <Text style={styles.body}>{result.win.away}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
@@ -546,9 +560,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.draw.total}
-                    </Text>
+                    <Text style={styles.body}>{result.draw.total}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -558,9 +570,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.draw.home}
-                    </Text>
+                    <Text style={styles.body}>{result.draw.home}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -570,9 +580,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.draw.away}
-                    </Text>
+                    <Text style={styles.body}>{result.draw.away}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
@@ -591,9 +599,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.lost.total}
-                    </Text>
+                    <Text style={styles.body}>{result.lost.total}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -603,9 +609,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.lost.home}
-                    </Text>
+                    <Text style={styles.body}>{result.lost.home}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -615,9 +619,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.lost.away}
-                    </Text>
+                    <Text style={styles.body}>{result.lost.away}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
@@ -636,9 +638,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.goals_for.total}
-                    </Text>
+                    <Text style={styles.body}>{result.goals_for.total}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -648,9 +648,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.goals_for.home}
-                    </Text>
+                    <Text style={styles.body}>{result.goals_for.home}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -660,9 +658,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.goals_for.away}
-                    </Text>
+                    <Text style={styles.body}>{result.goals_for.away}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
@@ -693,9 +689,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.goals_against.home}
-                    </Text>
+                    <Text style={styles.body}>{result.goals_against.home}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -705,9 +699,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.goals_against.away}
-                    </Text>
+                    <Text style={styles.body}>{result.goals_against.away}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
@@ -726,9 +718,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.clean_sheet.total}
-                    </Text>
+                    <Text style={styles.body}>{result.clean_sheet.total}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -738,9 +728,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.clean_sheet.home}
-                    </Text>
+                    <Text style={styles.body}>{result.clean_sheet.home}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
 
@@ -750,9 +738,7 @@ const Analytics = () => {
                   </DataTable.Cell>
 
                   <DataTable.Cell style={{ justifyContent: "flex-end" }}>
-                    <Text style={styles.body}>
-                      {result.clean_sheet.away}
-                    </Text>
+                    <Text style={styles.body}>{result.clean_sheet.away}</Text>
                   </DataTable.Cell>
                 </DataTable.Row>
               </View>
