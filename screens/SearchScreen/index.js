@@ -10,13 +10,7 @@ import styles from "./styles";
 
 //Section Imports
 import Header from "../../components/header/header";
-
-//Api Calls
-import ApiCalls from "../../components/api_calls/calls";
 import Search from "../../components/search/search";
-
-//Token
-var token = ApiCalls.ApiToken.Token;
 
 const SearchScreen = () => {
   return (
