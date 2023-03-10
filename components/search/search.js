@@ -33,7 +33,6 @@ const Search = () => {
   const [state, setState] = useState({
     s: "",
     results: [],
-    selected: {},
   });
 
   const search = () => {
